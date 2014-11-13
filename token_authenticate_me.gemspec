@@ -18,4 +18,6 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_runtime_dependency     'activerecord', '>= 3.2.0'
+
+  s.add_development_dependency 'rubocop', '>= 0.27.0'
 end

@@ -9,3 +9,9 @@ task :console do
   ARGV.clear
   IRB.start
 end
+
+task default: [:rubocop]
+
+task :rubocop do
+  system 'bundle exec rubocop -RD'
+end
