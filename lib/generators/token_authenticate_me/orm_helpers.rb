@@ -2,19 +2,15 @@ module TokenAuthenticateMe
   module Generators
     module OrmHelpers
       def model_contents
-        buffer = <<-CONTENT
-  has_secure_password
-
-  validates :email,
-    presence: true,
-    uniqueness: { case_sensitive: false }
-
-  validates :username,
-    format: { with: /\A[a-zA-Z0-9]+\Z/ },
-    presence: true,
-    uniqueness: { case_sensitive: false }
+        <<-CONTENT
+  include TokenAuthenticateMe::User
 CONTENT
-        buffer
+      end
+
+      def model_requires
+        <<-CONTENT
+require 'token_authenticate_me/user'
+CONTENT
       end
 
       private

@@ -9,7 +9,7 @@ module ActiveRecord
       include TokenAuthenticateMe::Generators::OrmHelpers
       source_root File.expand_path('../templates', __FILE__)
 
-      def copy_devise_migration
+      def copy_migration
         if invoked_and_exists? || revoked_and_exists?
           existing_migration_template
         else
@@ -22,18 +22,10 @@ module ActiveRecord
       end
 
       def inject_token_authenticate_me_content # rubocop:disable Metrics/AbcSize
-        content = model_contents
-
-        class_path = if namespaced?
-                       class_name.to_s.split('::')
-                     else
-                       [class_name]
-                     end
-
-        indent_depth = class_path.size - 1
-        content = content.split("\n").map { |line| '  ' * indent_depth + line } .join("\n") << "\n"
-
-        inject_into_class(model_path, class_path.last, content) if model_exists?
+        if model_exists?
+          inject_into_file(model_path, model_requires, after: /^/)
+          inject_into_class(model_path, base_class_path.last, indented_model_contents)
+        end
       end
 
       def migration_data
@@ -41,7 +33,7 @@ module ActiveRecord
       t.string :username,  null: false
       t.string :email, null: false
       t.string :password_digest, null: false
-      t.string :reset_token
+      t.string :reset_password_token
       t.datetime :reset_token_exp
 RUBY
       end
@@ -60,6 +52,19 @@ RUBY
           'migration.rb',
           "db/migrate/token_authenticate_me_create_#{table_name}.rb"
         )
+      end
+
+      def base_class_path
+        if namespaced?
+          class_name.to_s.split('::')
+        else
+          [class_name]
+        end
+      end
+
+      def indented_model_contents
+        indent_depth = base_class_path.size - 1
+        model_contents.split("\n").map { |line| '  ' * indent_depth + line } .join("\n") << "\n"
       end
 
       def invoked_and_exists?
