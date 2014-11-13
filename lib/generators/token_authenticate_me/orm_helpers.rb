@@ -10,27 +10,11 @@ module TokenAuthenticateMe
     uniqueness: { case_sensitive: false }
 
   validates :username,
-    format: { with: /\A[a-zA-Z0-9]+\Z/ }
+    format: { with: /\A[a-zA-Z0-9]+\Z/ },
     presence: true,
-    uniqueness: { case_sensitive: false },
-CONTENT
-        buffer += <<-CONTENT if needs_attr_accessible?
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :username, :password, :password_confirmation
+    uniqueness: { case_sensitive: false }
 CONTENT
         buffer
-      end
-
-      def needs_attr_accessible?
-        rails_3? && !strong_parameters_enabled?
-      end
-
-      def rails_3?
-        Rails::VERSION::MAJOR == 3
-      end
-
-      def strong_parameters_enabled?
-        defined?(ActionController::StrongParameters)
       end
 
       private
