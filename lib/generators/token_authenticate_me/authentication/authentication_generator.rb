@@ -7,6 +7,10 @@ module TokenAuthenticateMe
       def create_authentication_model_file
         template 'model.rb', File.join('app/models', "#{singular_name}.rb")
       end
+
+      def create_authentication_migration_file
+        template 'migration.rb', File.join('db/migrations', "#{singular_name}.rb")
+      end
     end
   end
 end
