@@ -1,4 +1,4 @@
-class <%= class_name %>Migration < ActiveRecord::Migration
+class UserMigration < ActiveRecord::Migration
   def up
     create_table :users do |t|
       t.string :username,  null: false
