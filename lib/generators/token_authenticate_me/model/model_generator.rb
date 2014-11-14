@@ -7,3 +7,6 @@ module TokenAuthenticateMe
       def create_authentication_model_file
         template 'model.rb', File.join('app/models', "#{singular_name}.rb")
       end
+    end
+  end
+end
