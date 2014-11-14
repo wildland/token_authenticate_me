@@ -9,7 +9,7 @@ module TokenAuthenticateMe
       end
 
       def create_authentication_migration_file
-        template 'migration.rb', File.join('db/migrations', "#{singular_name}.rb")
+        migration_template 'migration.rb', File.join('db/migrations', "#{file_name}.rb")
       end
     end
   end
