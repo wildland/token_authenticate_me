@@ -20,6 +20,15 @@ module TokenAuthenticateMe
           presence: true,
           uniqueness: { case_sensitive: false }
         )
+
+        def create_reset_token
+          begin
+            self.reset_token = SecureRandom.hex
+          end while self.class.exists?(reset_token: reset_token)
+
+          self.reset_token_exp = password_expiration_hours.hours.from_now
+          self.save!
+        end
       end
     end
   end

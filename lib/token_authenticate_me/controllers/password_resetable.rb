@@ -20,11 +20,9 @@ module TokenAuthenticateMe
           @user = User.find_by_email(params[:email])
 
           if @user
-            @user.create_reset_token
-            @user.save!
-            TokenAuthenticateMeMailer.valid_user_reset_password_email(request.base_url, @user).deliver
+            send_valid_reset_email(@user)
           else
-            TokenAuthenticateMeMailer.invalid_user_reset_password_email(request.base_url, params[:email]).deliver
+            send_invalid_reset_email(params[:email])
           end
 
           render status: 204, nothing: true
@@ -47,6 +45,22 @@ module TokenAuthenticateMe
 
         private
 
+        def send_valid_reset_email(user)
+          user.create_reset_token!
+
+          TokenAuthenticateMeMailer.valid_user_reset_password_email(
+            request.base_url,
+            user
+          ).deliver
+        end
+
+        def send_invalid_reset_email(email)
+          TokenAuthenticateMeMailer.invalid_user_reset_password_email(
+            request.base_url,
+            email
+          ).deliver
+        end
+
         def session_params
           params.permit(:password, :password_confirmation)
         end
@@ -60,14 +74,14 @@ module TokenAuthenticateMe
         end
 
         def validate_reset_token
-          is_valid_reset_token || render_not_found
+          valid_reset_token? || render_not_found
         end
 
         def render_not_found
           render status: 404, nothing: true
         end
 
-        def is_valid_reset_token
+        def valid_reset_token?
           @user = User.find_by_reset_token(params[:id])
 
           @user && @user.reset_token_exp > DateTime.now

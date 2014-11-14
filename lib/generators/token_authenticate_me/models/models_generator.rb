@@ -18,8 +18,14 @@ module TokenAuthenticateMe
       def create_authentication_migration_file
         # When the switch is made to allow resource names to be specified, could use something like:
         #    migration_file_name = "#{self.next_migration_number}_#{plural_name}.rb"
-        #    migration_template 'authentication_migration.rb', File.join('db/migrations', migration_file_name)
-        migration_template 'authentication_migration.rb', File.join('db/migrations', "#{next_migration_number}_users.rb")
+        #    migration_template(
+        #      'authentication_migration.rb',
+        #      File.join('db/migrations', migration_file_name)
+        #    )
+        migration_template(
+          'authentication_migration.rb',
+          File.join('db/migrations', "#{next_migration_number}_users.rb")
+        )
       end
 
       def create_session_model_file
@@ -29,8 +35,14 @@ module TokenAuthenticateMe
       def create_session_migration_file
         # When the switch is made to allow resource names to be specified, could use something like:
         #    migration_file_name = "#{self.next_migration_number}_#{singular_name}_sessions.rb"
-        #    migration_template 'authentication_migration.rb', File.join('db/migrations', migration_file_name)
-        migration_template 'session_migration.rb', File.join('db/migrations', "#{next_migration_number}_sessions.rb")
+        #    migration_template(
+        #      'authentication_migration.rb',
+        #      File.join('db/migrations', migration_file_name)
+        #    )
+        migration_template(
+          'session_migration.rb',
+          File.join('db/migrations', "#{next_migration_number}_sessions.rb")
+        )
       end
     end
   end
