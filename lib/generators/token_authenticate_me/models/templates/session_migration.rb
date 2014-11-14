@@ -1,4 +1,4 @@
-class UserMigration < ActiveRecord::Migration
+class SessionMigration < ActiveRecord::Migration
   def up
     create_table :sessions do |t|
       t.string   :key,        null: false
