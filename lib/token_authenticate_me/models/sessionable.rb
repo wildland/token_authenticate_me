@@ -13,7 +13,7 @@ module TokenAuthenticateMe
         def generate_unique_key
           begin
             self.key = SecureRandom.hex
-          end while self.class.exists?(key: self.key)
+          end while self.class.exists?(key: key)
 
           self.expiration = expiration_hours.hours.from_now
         end

@@ -21,9 +21,8 @@ module TokenAuthenticateMe
             @session = Session.create(user_id: user.id)
             render json: @session
           else
-            render json: {message: 'Bad credentials'}, status: 401
+            render json: { message: 'Bad credentials' }, status: 401
           end
-
         end
 
         def show
@@ -32,13 +31,11 @@ module TokenAuthenticateMe
         end
 
         def destroy
-          begin
-            authenticate_token.destroy()
+          authenticate_token.destroy
 
-            render status: 204, nothing: true
-          rescue
-            render_unauthorized
-          end
+          render status: 204, nothing: true
+        rescue
+          render_unauthorized
         end
 
         private
@@ -48,11 +45,9 @@ module TokenAuthenticateMe
         end
 
         def cleanup_sessions
-          begin
-            # TODO: implement cleanup routine (async would be best)
-          rescue
-            Rails.logger.warn "Error cleaning up old authentication sessions"
-          end
+          ApiSession.where('expiration < ?', DateTime.now).delete_all
+        rescue
+          Rails.logger.warn 'Error cleaning up old authentication sessions'
         end
       end
     end

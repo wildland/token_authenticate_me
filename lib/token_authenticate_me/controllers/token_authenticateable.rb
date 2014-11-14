@@ -2,7 +2,7 @@ require 'active_support/concern'
 
 module TokenAuthenticateMe
   module Controllers
-    module TokenAuthenticable
+    module TokenAuthenticateable
       extend ActiveSupport::Concern
 
       included do
@@ -24,7 +24,7 @@ module TokenAuthenticateMe
       end
 
       def authenticate_token
-        @session ||= authenticate_with_http_token do |token, options|
+        @session ||= authenticate_with_http_token do |token, _options|
           session = Session.find_by_key(token)
           if session && session.expiration > DateTime.now
             session
@@ -35,7 +35,7 @@ module TokenAuthenticateMe
       end
 
       def render_unauthorized
-        self.headers['WWW-Authenticate'] = 'Token realm="Application"'
+        headers['WWW-Authenticate'] = 'Token realm="Application"'
         render json: 'Bad credentials', status: 401
       end
     end
