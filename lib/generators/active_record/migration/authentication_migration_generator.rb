@@ -3,10 +3,10 @@ require 'generators/token_authenticate_me/orm_helpers'
 
 module ActiveRecord
   module Generators
-    class TokenAuthenticateMeGenerator < ActiveRecord::Generators::Base
-      argument :attributes, type: :array, default: [], banner: 'field:type field:type'
-
+    class AuthenticationMigrationGenerator < ActiveRecord::Generators::Base
       include TokenAuthenticateMe::Generators::OrmHelpers
+
+      argument :attributes, type: :array, default: [], banner: 'field:type field:type'
       source_root File.expand_path('../templates', __FILE__)
 
       def copy_migration
@@ -17,25 +17,25 @@ module ActiveRecord
         end
       end
 
-      def generate_model
-        invoke 'active_record:model', [name], migration: false unless invoked_and_exists?
-      end
+      # def generate_model
+      #   invoke 'active_record:model', [name], migration: false unless invoked_and_exists?
+      # end
 
-      def inject_token_authenticate_me_content # rubocop:disable Metrics/AbcSize
-        if model_exists?
-          inject_into_file(model_path, model_requires, after: /^/)
-          inject_into_class(model_path, base_class_path.last, indented_model_contents)
-        end
-      end
+      # def inject_token_authenticate_me_content # rubocop:disable Metrics/AbcSize
+      #   if model_exists?
+      #     inject_into_file(model_path, model_requires, after: /^/)
+      #     inject_into_class(model_path, base_class_path.last, indented_model_contents)
+      #   end
+      # end
 
       def migration_data
-        <<RUBY
+        <<-RUBY
       t.string :username,  null: false
       t.string :email, null: false
       t.string :password_digest, null: false
       t.string :reset_password_token
-      t.datetime :reset_token_exp
-RUBY
+      t.datetime :reset_password_token_exp
+        RUBY
       end
 
       private

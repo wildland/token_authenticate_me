@@ -1,18 +1,6 @@
 module TokenAuthenticateMe
   module Generators
     module OrmHelpers
-      def model_contents
-        <<-CONTENT
-  include TokenAuthenticateMe::User
-CONTENT
-      end
-
-      def model_requires
-        <<-CONTENT
-require 'token_authenticate_me/user'
-CONTENT
-      end
-
       private
 
       def model_exists?

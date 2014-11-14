@@ -1,4 +1,4 @@
-require 'token_authenticate_me/user'
+require 'token_authenticate_me/authentication_model'
 require 'token_authenticate_me/version'
 
 module TokenAuthenticateMe
