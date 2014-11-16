@@ -43,4 +43,4 @@ end
 ````
 
 ### TODO:
-  [ ] - Make it so any resource name can be used for authentication (initial thought is either specify the default or pass resource name in token string?).
+[ ] - Make it so any resource name can be used for authentication (initial thought is either specify the default or pass resource name in token string?).
