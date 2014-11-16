@@ -2,8 +2,6 @@ class TokenAuthenticateMeMailer < ActionMailer::Base
   SIGNUP_PATH = 'sign-up'
   RESET_PATH = 'reset-password/:token/'
 
-  helper :application
-
   def valid_user_reset_password_email(root_url, user)
     @root_url = root_url
     @user = user
@@ -25,6 +23,6 @@ class TokenAuthenticateMeMailer < ActionMailer::Base
   private
 
   def token_reset_path
-    @reset_path.sub(/:token/, @user.reset_token)
+    @reset_path.sub(/:token/, @user.reset_password_token)
   end
 end

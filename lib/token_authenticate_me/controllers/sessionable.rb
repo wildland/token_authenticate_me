@@ -7,19 +7,17 @@ module TokenAuthenticateMe
     module Sessionable
       extend ActiveSupport::Concern
 
-      include TokenAuthenticateable
+      include TokenAuthenticateMe::Controllers::TokenAuthenticateable
 
       included do
-        serialization_scope nil
-
         skip_before_action :authenticate, only: [:create]
-        after_action :cleanup_sessions
+        after_action :cleanup_sessions, only: [:destroy]
 
         def create
-          resource = User.where('username=? OR email=?', params[:username], params[:email]).first
+          resource = User.where('username=? OR email=?', params[:username], params[:username]).first
           if resource && resource.authenticate(params[:password])
-            @session = Session.create(user_id: user.id)
-            render json: @session
+            @session = Session.create(user_id: resource.id)
+            render json: serialize_session(@session), status: 201
           else
             render json: { message: 'Bad credentials' }, status: 401
           end
@@ -27,7 +25,7 @@ module TokenAuthenticateMe
 
         def show
           @session = authenticate_token
-          render json: @session
+          render json: serialize_session(@session)
         end
 
         def destroy
@@ -39,6 +37,16 @@ module TokenAuthenticateMe
         end
 
         private
+
+        def serialize_session(session)
+          {
+            session: {
+              key: session.key,
+              user_id: session.user_id,
+              expiration: session.expiration
+            }
+          }
+        end
 
         def session_params
           params.permit(:username, :email, :password)

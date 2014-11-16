@@ -4,8 +4,8 @@ class SessionMigration < ActiveRecord::Migration
       t.string   :key,        null: false
       t.datetime :expiration
       t.integer  :user_id
-      t.datetime :created_at
-      t.datetime :updated_at
+
+      t.timestamps
     end
 
     add_index :key, unique: true

@@ -8,9 +8,7 @@ module TokenAuthenticateMe
       extend ActiveSupport::Concern
 
       included do
-        include TokenAuthenticable
-
-        serialization_scope nil
+        include TokenAuthenticateMe::Controllers::TokenAuthenticateable
 
         skip_before_action :authenticate, only: [:create, :update]
         before_action :validate_reset_token, only: [:update]
@@ -34,8 +32,8 @@ module TokenAuthenticateMe
           @user.update!(
             password: params[:password],
             password_confirmation: params[:password_confirmation],
-            reset_token: nil,
-            reset_token_exp: nil
+            reset_password_token: nil,
+            reset_password_token_exp: nil
           )
 
           render status: 204, nothing: true
@@ -82,9 +80,9 @@ module TokenAuthenticateMe
         end
 
         def valid_reset_token?
-          @user = User.find_by_reset_token(params[:id])
+          @user = User.find_by_reset_password_token(params[:id])
 
-          @user && @user.reset_token_exp > DateTime.now
+          @user && @user.reset_password_token_exp > DateTime.now
         end
       end
     end
