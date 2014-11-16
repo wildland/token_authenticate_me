@@ -16,7 +16,7 @@ namespace :api do
         ROUTE
       end
 
-      def create_password_reset_controller
+      def create_password_reset_controller # rubocop:disable Metrics/MethodLength
         template 'password_reset.rb', 'app/controllers/api/password_resets_controller.rb'
 
         # Inject /api/password_resets route into routes file
