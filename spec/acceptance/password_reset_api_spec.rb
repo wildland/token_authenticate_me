@@ -79,7 +79,7 @@ describe 'Password Reset API' do
   end
 
   it 'returns a 204 when a password reset is requested with a invalid e-mail' do
-    user = create_user
+    user = create_user # rubocop:disable Lint/UselessAssignment
 
     post '/password_resets/',  email: 'foo@bar.com'
 
@@ -98,7 +98,7 @@ describe 'Password Reset API' do
   end
 
   it 'sends a invalid e-mail when a password reset is requested with a invalid e-mail' do
-    user = create_user
+    user = create_user # rubocop:disable Lint/UselessAssignment
     email = 'foo@bar.com'
 
     post '/password_resets/',  email: email

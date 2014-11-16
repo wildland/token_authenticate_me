@@ -22,6 +22,7 @@ module TokenAuthenticateMe
         )
 
         def create_reset_token!
+          # rubocop:disable Lint/Loop
           begin
             self.reset_password_token = SecureRandom.hex
           end while self.class.exists?(reset_password_token: reset_password_token)

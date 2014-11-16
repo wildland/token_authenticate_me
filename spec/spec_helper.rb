@@ -10,7 +10,9 @@ require 'rspec/rails'
 require 'rack/test'
 
 # Load fixture helpers for testing
-Dir[File.join(File.dirname(__FILE__), 'internal', 'db', 'fixtures', '**', '*.rb')].each { |file| require file }
+Dir[File.join(File.dirname(__FILE__), 'internal', 'db', 'fixtures', '**', '*.rb')].each do |file|
+  require file
+end
 
 module ApiHelper
   include Rack::Test::Methods
