@@ -14,7 +14,7 @@ To add or create a user with token authentication run:
 `rails generate token_authenticate_me:install <model>`
 
 Replace `<model>` with the class name used for users. This will create the necessary migration files, and optionally create the model file if it does not exist.
-*** Right now this gem only supports creating the authentication model User, so it is recommended to call `rails generate token_authenticate_me:install user`
+*** Right now this gem only supports creating the authentication model `User`, so it is recommended to call `rails generate token_authenticate_me:install user`
 
 Include TokenAuthenticateMe::TokenAuthentication into the application controller or any controllers that require authorization:
 ````rb
@@ -40,6 +40,7 @@ class Api::V1::UsersController < Api::BaseController
   # Allow new users to create an account
   skip_before_action :authenticate, only: [:create]
 end
+````
 
 ### TODO:
   [ ] - Make it so any resource name can be used for authentication (initial thought is either specify the default or pass resource name in token string?).
