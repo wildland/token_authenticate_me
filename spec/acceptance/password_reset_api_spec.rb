@@ -9,7 +9,7 @@ describe 'Password Reset API' do
     reset_token = user.reset_password_token.to_s
 
     put '/password_resets/' + reset_token + '/',
-        { password: "test", password_confirmation: "test" }
+        password: 'test', password_confirmation: 'test'
 
     expect(last_response.status).to eq(204)
     expect(User.find(user.id).password_digest).not_to eq(encrypted_pw)
@@ -23,13 +23,13 @@ describe 'Password Reset API' do
     reset_token = user.reset_password_token.to_s
 
     put '/password_resets/' + reset_token + '/',
-        { password: "test", password_confirmation: "test" }
+        password: 'test', password_confirmation: 'test'
 
     expect(last_response.status).to eq(204)
     expect(User.find(user.id).password_digest).not_to eq(encrypted_pw)
 
     put '/password_resets/' + reset_token + '/',
-        { password: "test", password_confirmation: "test" }
+        password: 'test', password_confirmation: 'test'
     expect(last_response.status).to eq(404)
   end
 
@@ -41,7 +41,7 @@ describe 'Password Reset API' do
     reset_token = user.reset_password_token.to_s
 
     put '/password_resets/' + reset_token + '/',
-        { password: "test", password_confirmation: "test_ops" }
+        password: 'test', password_confirmation: 'test_ops'
 
     expect(last_response.status).to eq(422)
     expect(User.find(user.id).password_digest).to eq(encrypted_pw)
@@ -53,9 +53,9 @@ describe 'Password Reset API' do
     user.create_reset_token!
     encrypted_pw = user.password_digest
 
-    expect {
-      put '/password_resets//', { password: "test", password_confirmation: "test" }
-    }.to raise_error(ActionController::RoutingError)
+    expect do
+      put '/password_resets//',  password: 'test', password_confirmation: 'test'
+    end.to raise_error(ActionController::RoutingError)
     expect(User.find(user.id).password_digest).to eq(encrypted_pw)
   end
 
@@ -65,7 +65,7 @@ describe 'Password Reset API' do
     user.create_reset_token!
 
     put '/password_resets/' + SecureRandom.hex.to_s + '/',
-        { password: "test", password_confirmation: "test" }
+        password: 'test', password_confirmation: 'test'
 
     expect(last_response.status).to eq(404)
   end
@@ -73,7 +73,7 @@ describe 'Password Reset API' do
   it 'returns a 204 when a password reset is requested with a valid e-mail' do
     user = create_user
 
-    post '/password_resets/', { email: user.email }
+    post '/password_resets/',  email: user.email
 
     expect(last_response.status).to eq(204)
   end
@@ -81,7 +81,7 @@ describe 'Password Reset API' do
   it 'returns a 204 when a password reset is requested with a invalid e-mail' do
     user = create_user
 
-    post '/password_resets/', { email: 'foo@bar.com' }
+    post '/password_resets/',  email: 'foo@bar.com'
 
     expect(last_response.status).to eq(204)
   end
@@ -89,7 +89,7 @@ describe 'Password Reset API' do
   it 'sends a valid e-mail when a password reset is requested with a valid e-mail' do
     user = create_user
 
-    post '/password_resets/', { email: user.email }
+    post '/password_resets/',  email: user.email
 
     mail = ActionMailer::Base.deliveries.last
 
@@ -101,7 +101,7 @@ describe 'Password Reset API' do
     user = create_user
     email = 'foo@bar.com'
 
-    post '/password_resets/', { email: email }
+    post '/password_resets/',  email: email
 
     mail = ActionMailer::Base.deliveries.last
 

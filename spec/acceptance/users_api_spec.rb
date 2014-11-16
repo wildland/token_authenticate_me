@@ -6,21 +6,20 @@ describe 'Users API' do
     password = 'test'
     email = 'test'
 
-    post '/users/', {
-      user: {
-        username: username,
-        password: password,
-        password_confirmation: password,
-        email: email
-      }
-    }
+    post '/users/',
+         user: {
+           username: username,
+           password: password,
+           password_confirmation: password,
+           email: email
+         }
 
     expect(last_response.status).to eq(201)
     json = JSON.parse(last_response.body)
 
-    expect(json["user"]).not_to be_nil
-    expect(json["user"]["username"]).to eq(username)
-    expect(json["user"]["email"]).to eq(email)
+    expect(json['user']).not_to be_nil
+    expect(json['user']['username']).to eq(username)
+    expect(json['user']['email']).to eq(email)
   end
 
   it 'fails to create a new user when the password confirmation does not match' do
@@ -28,14 +27,13 @@ describe 'Users API' do
     password = 'test'
     email = 'test'
 
-    post '/users/', {
-      user: {
-        username: username,
-        password: password,
-        password_confirmation: 'invalid',
-        email: email
-      }
-    }
+    post '/users/',
+         user: {
+           username: username,
+           password: password,
+           password_confirmation: 'invalid',
+           email: email
+         }
 
     expect(last_response.status).to eq(422)
   end

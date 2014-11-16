@@ -2,66 +2,66 @@ require 'spec_helper'
 
 describe 'Session API' do
   it 'creates a new session when authenticating with a username and password' do
-    password = "text"
+    password = 'text'
     user = create_user(password: password)
 
     post '/session/',
-        { username: user.username, password: password }
+         username: user.username, password: password
 
     expect(last_response.status).to eq(201)
     json = JSON.parse(last_response.body)
 
-    expect(json["session"]).not_to be_nil
-    expect(json["session"]["key"]).not_to be_nil
-    expect(json["session"]["expiration"]).not_to be_nil
-    expect(user.id).to eq(json["session"]["user_id"])
+    expect(json['session']).not_to be_nil
+    expect(json['session']['key']).not_to be_nil
+    expect(json['session']['expiration']).not_to be_nil
+    expect(user.id).to eq(json['session']['user_id'])
   end
 
   it 'creates a new session when authenticating with a email and password' do
-    password = "text"
+    password = 'text'
     user = create_user(password: password)
 
     post '/session/',
-        { username: user.email, password: password }
+         username: user.email, password: password
 
     expect(last_response.status).to eq(201)
     json = JSON.parse(last_response.body)
 
-    expect(json["session"]).not_to be_nil
-    expect(json["session"]["key"]).not_to be_nil
-    expect(json["session"]["expiration"]).not_to be_nil
-    expect(user.id).to eq(json["session"]["user_id"])
+    expect(json['session']).not_to be_nil
+    expect(json['session']['key']).not_to be_nil
+    expect(json['session']['expiration']).not_to be_nil
+    expect(user.id).to eq(json['session']['user_id'])
   end
 
   it 'fails to create a new session when authenticating with an invalid password' do
-    password = "text"
+    password = 'text'
     user = create_user(password: password)
 
     post '/session/',
-        { username: user.email, password: "not_test" }
+         username: user.email, password: 'not_test'
 
     expect(last_response.status).to eq(401)
   end
 
   it 'fetches an existing session when authenticated' do
-    password = "text"
+    password = 'text'
     user = create_user(password: password)
 
     post '/session/',
-        { username: user.email, password: password }
+         username: user.email, password: password
     expect(last_response.status).to eq(201)
     json = JSON.parse(last_response.body)
 
-    header 'Authorization', 'Token token=' + json["session"]["key"]
+    header 'Authorization', 'Token token=' + json['session']['key']
     get '/session/'
     expect(last_response.status).to eq(200)
 
     json = JSON.parse(last_response.body)
 
-    expect(json["session"]).not_to be_nil
-    expect(json["session"]["key"]).not_to be_nil
-    expect(json["session"]["expiration"]).not_to be_nil
-    expect(user.id).to eq(json["session"]["user_id"])
+    expect(json['session']).not_to be_nil
+    expect(json['session']['key']).not_to be_nil
+    expect(json['session']['expiration']).not_to be_nil
+    expect(user.id).to eq(json['session']['user_id'])
   end
 
   it 'fetching an expired session fails' do
