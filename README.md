@@ -43,5 +43,6 @@ class Api::V1::UsersController < Api::BaseController
 end
 ````
 
-### TODO:
-[ ] - Make it so any resource name can be used for authentication (initial thought is either specify the default or pass resource name in token string?).
+#### TODO:
+- [ ] Make it so any resource name can be used for authentication (initial thought is either specify the default or pass resource name in token string?).
+- [ ] Allow users to specify the API namespace default.
