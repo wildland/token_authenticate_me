@@ -24,7 +24,7 @@ module TokenAuthenticateMe
         #    )
         migration_template(
           'authentication_migration.rb',
-          File.join('db/migrations', "create_users.rb")
+          File.join('db/migrate', "create_users.rb")
         )
       end
 
@@ -41,7 +41,7 @@ module TokenAuthenticateMe
         #    )
         migration_template(
           'session_migration.rb',
-          File.join('db/migrations', "create_sessions.rb")
+          File.join('db/migrate', "create_sessions.rb")
         )
       end
 

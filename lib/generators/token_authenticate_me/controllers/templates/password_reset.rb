@@ -1,6 +1,6 @@
 require 'token_authenticate_me/controllers/password_resetable'
 
-class PasswordResetsController < ApplicationController
+class Api::PasswordResetsController < ApplicationController
   include TokenAuthenticateMe::Controllers::PasswordResetable
 
 end

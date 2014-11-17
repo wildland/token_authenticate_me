@@ -1,4 +1,4 @@
-class SessionMigration < ActiveRecord::Migration
+class CreateSessions < ActiveRecord::Migration
   def up
     create_table :sessions do |t|
       t.string   :key,        null: false
@@ -8,7 +8,7 @@ class SessionMigration < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :key, unique: true
+    add_index :sessions, :key, unique: true
   end
 
   def down
