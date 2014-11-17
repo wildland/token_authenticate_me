@@ -18,4 +18,15 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_runtime_dependency     'activerecord', '>= 3.2.0'
+  s.add_runtime_dependency     'activesupport', '>= 3.2.0'
+  s.add_runtime_dependency     'actionmailer', '>= 3.2.0'
+  s.add_runtime_dependency     'actionpack'
+  s.add_runtime_dependency     'bcrypt', '~> 3.1.9'
+
+  s.add_development_dependency 'rubocop', '>= 0.27.0'
+  s.add_development_dependency 'combustion', '~> 0.5.2'
+  s.add_development_dependency 'rack-test'
+  s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency 'sqlite3'
+  s.add_development_dependency 'api_me'
 end
