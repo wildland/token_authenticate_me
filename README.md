@@ -19,7 +19,7 @@ Replace `<model>` with the class name used for users. This will create the neces
 
 Include TokenAuthenticateMe::TokenAuthentication into the application controller or any controllers that require authorization:
 ````rb
-require 'token_authenticate_me/token_authentication'
+require 'token_authenticate_me/controllers/token_authenticateable'
 
 class ApplicationController < ActionController::Base
   force_ssl if Rails.env.production?
@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  include TokenAuthenticateMe::TokenAuthentication
+  include TokenAuthenticateMe::Controllers::TokenAuthenticateable
 
   #...
 end
