@@ -32,6 +32,19 @@ namespace :api do
   end
         ROUTE
       end
+
+      def create_users_controller
+        template 'users.rb', 'app/controllers/api/users_controller.rb'
+
+        # Inject /api/v1/users route into routes file
+        route <<-ROUTE
+namespace :api do
+    namespace :v1 do
+      resources :users
+    end
+  end
+        ROUTE
+      end
     end
   end
 end
