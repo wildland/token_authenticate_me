@@ -34,7 +34,7 @@ namespace :api do
       end
 
       def create_users_controller
-        template 'users.rb', 'app/controllers/api/users_controller.rb'
+        template 'users.rb', 'app/controllers/api/v1/users_controller.rb'
 
         # Inject /api/v1/users route into routes file
         route <<-ROUTE
@@ -44,6 +44,13 @@ namespace :api do
     end
   end
         ROUTE
+
+        inject_into_class(
+          Rails.root.join('app', 'controllers', 'api', 'v1', 'users_controller.rb'),
+          UsersController) do
+            "  skip_before_action :authenticate, only: [:create]\n"
+        end
+
       end
     end
   end
