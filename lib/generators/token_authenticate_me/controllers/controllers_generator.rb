@@ -44,13 +44,17 @@ namespace :api do
     end
   end
         ROUTE
+      end
 
+      private
+
+      def inject_before_actions_into_users_controllers
         inject_into_class(
           Rails.root.join('app', 'controllers', 'api', 'v1', 'users_controller.rb'),
-          UsersController) do
-            "  skip_before_action :authenticate, only: [:create]\n"
+          UsersController
+        ) do
+          "  skip_before_action :authenticate, only: [:create]\n"
         end
-
       end
     end
   end
