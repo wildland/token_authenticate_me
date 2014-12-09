@@ -14,7 +14,7 @@ describe 'Session API' do
     expect(json['session']).not_to be_nil
     expect(json['session']['key']).not_to be_nil
     expect(json['session']['expiration']).not_to be_nil
-    expect(user.id).to eq(json['session']['user_id'])
+    expect(user.id).to eq(json['session']['user']['id'])
   end
 
   it 'creates a new session when authenticating with a email and password' do
@@ -30,7 +30,7 @@ describe 'Session API' do
     expect(json['session']).not_to be_nil
     expect(json['session']['key']).not_to be_nil
     expect(json['session']['expiration']).not_to be_nil
-    expect(user.id).to eq(json['session']['user_id'])
+    expect(user.id).to eq(json['session']['user']['id'])
   end
 
   it 'fails to create a new session when authenticating with an invalid password' do
@@ -61,7 +61,7 @@ describe 'Session API' do
     expect(json['session']).not_to be_nil
     expect(json['session']['key']).not_to be_nil
     expect(json['session']['expiration']).not_to be_nil
-    expect(user.id).to eq(json['session']['user_id'])
+    expect(user.id).to eq(json['session']['user']['id'])
   end
 
   it 'fetching an expired session fails' do

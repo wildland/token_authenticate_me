@@ -21,6 +21,16 @@ module TokenAuthenticateMe
           uniqueness: { case_sensitive: false }
         )
 
+        def attributes
+          {
+            'id' => id,
+            'username' => username,
+            'email' => email,
+            'created_at' => created_at,
+            'updated_at' => updated_at
+          }
+        end
+
         def create_reset_token!
           # rubocop:disable Lint/Loop
           begin
