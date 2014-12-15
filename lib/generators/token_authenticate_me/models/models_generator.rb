@@ -48,15 +48,15 @@ module TokenAuthenticateMe
       private
 
       def authenticate_model_singular_name
-        "user" #singular_name
+        'user' # singular_name
       end
 
       def session_model_plural_name
-        "sessions" #"#{singular_name}_sessions"
+        'sessions' # "#{singular_name}_sessions"
       end
 
       def session_model_singular_name
-        "session" #"#{singular_name}_session"
+        'session' # "#{singular_name}_session"
       end
 
       def next_migration_number

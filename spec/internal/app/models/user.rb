@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
 
   has_many :sessions
 
-  def as_json(options=nil)
+  def as_json(options = nil)
     { user: super(options) }
   end
 end

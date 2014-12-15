@@ -5,7 +5,7 @@ class Session < ActiveRecord::Base
 
   belongs_to :user
 
-  def as_json(options={})
+  def as_json(options = {})
     { session: super({ include: :user }.merge(options)) }
   end
 end
