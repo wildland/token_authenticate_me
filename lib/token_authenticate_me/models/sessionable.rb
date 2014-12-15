@@ -8,6 +8,15 @@ module TokenAuthenticateMe
       included do
         before_create :generate_unique_key
 
+        def attributes
+          {
+            'key' => key,
+            'expiration' => expiration,
+            'created_at' => created_at,
+            'updated_at' => updated_at
+          }
+        end
+
         private
 
         def generate_unique_key

@@ -53,4 +53,18 @@ describe 'Users API' do
 
     expect(last_response.status).to eq(401)
   end
+
+  it 'does not serialze password digest' do
+    user = create_user
+    session = Session.create!(user_id: user.id)
+
+    header 'Authorization', 'Token token=' + session.key
+    get '/users/' + user.id.to_s + '/'
+
+    expect(last_response.status).to eq(200)
+    json = JSON.parse(last_response.body)
+
+    expect(json['user']).not_to be_nil
+    expect(json['user']['password_digest']).to be_nil
+  end
 end
