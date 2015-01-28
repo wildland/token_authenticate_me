@@ -43,6 +43,25 @@ class Api::V1::UsersController < Api::BaseController
 end
 ````
 
+## Authentication Model
+The model that is used for authentication will need to have `include TokenAuthenticateMe::Models::Authenticatable`. This will automatically happen if you use the generator.
+
+If you did not use the generator, this module expects the model to have the following attributes:
+* `email:string`
+* `password_digest:string`
+* `username:string`
+* `reset_password_token:string`
+* `reset_password_token_exp:datetime`
+
+This model will have a set of [validators](https://github.com/inigo-llc/token_authenticate_me/blob/master/lib/token_authenticate_me/models/authenticatable.rb#L11) added to it. 
+
+*tl;dr*:
+* `email` is required, can't be blank, is unique (case insensitive), and must look like an email address.
+* `password` is required, can not be blank, it must be confirmed (`password_confirmation`), and must be between 8 and 72 characters long. If the model has been persisted `password` can be blank or `nil` which indicates that it should not be changed and will be ignored.
+* `username` is required, can't be blank, is unique (case insensitive), and only allows alphanumeric values.
+* To change the `password` or `email` after the model has been persisted, you will need to provide the current password as `current_password`.
+
 #### TODO:
 - [ ] Make it so any resource name can be used for authentication (initial thought is either specify the default or pass resource name in token string?).
 - [ ] Allow users to specify the API namespace default.
+- [ ] Add a way to override/change/configure validations.
