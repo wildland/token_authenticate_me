@@ -69,7 +69,7 @@ module TokenAuthenticateMe
 
         def current_password_correct
           errors.add(:current_password, 'is required to change email and/or password') if current_password.blank?
-          errors.add(:current_password, 'is incorrect') unless self.class.find(id).authenticate(current_password)
+          errors.add(:current_password, 'is incorrect') unless authenticate(current_password)
         end
 
         def current_password_required?
