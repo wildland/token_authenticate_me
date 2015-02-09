@@ -80,8 +80,13 @@ module TokenAuthenticateMe
         end
 
         def valid_reset_token?
-          @user = User.find_by_reset_password_token(params[:id])
+          # Check for
+          # https://github.com/rails/rails/commit/e8572cf2f94872d81e7145da31d55c6e1b074247
+          # security issue when config.action_dispatch.perform_deep_munge = false is set
+          # which is common for JSON APIs
+          return false if params[:id].class == Array || params[:id].nil?
 
+          @user = User.find_by_reset_password_token(params[:id])
           @user && @user.reset_password_token_exp > DateTime.now
         end
       end
