@@ -15,7 +15,7 @@ module TokenAuthenticateMe
           uniqueness: { case_sensitive: false },
           format: {
             with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i,
-            message: "invalid e-mail address"
+            message: 'invalid e-mail address'
           }
         )
 
@@ -68,8 +68,8 @@ module TokenAuthenticateMe
         end
 
         def current_password_correct
-          errors.add(:current_password, 'is required to change email and/or password') if current_password.blank?
-          errors.add(:current_password, 'is incorrect') unless self.class.find(self.id).authenticate(current_password)
+          errors.add(:current_password, 'is required to change email and/or password') if current_password.blank? # rubocop:disable Metrics/LineLength
+          errors.add(:current_password, 'is incorrect') unless authenticate(current_password)
         end
 
         def current_password_required?
