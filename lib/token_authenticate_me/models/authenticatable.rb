@@ -73,7 +73,11 @@ module TokenAuthenticateMe
         end
 
         def current_password_required?
-          !new_record? && (email_changed? || attempting_to_change_password?)
+          !new_record? && (email_changed? || attempting_to_change_password?) && !password_resetting?
+        end
+
+        def password_resetting?
+          reset_password_token_changed? && reset_password_token_exp_changed?
         end
 
         def password_required?
@@ -81,7 +85,7 @@ module TokenAuthenticateMe
         end
 
         def attempting_to_change_password?
-          !password.blank? || !password_confirmation.blank?
+          (!password.blank? || !password_confirmation.blank?) && password_digest_changed?
         end
       end
     end
