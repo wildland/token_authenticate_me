@@ -65,3 +65,6 @@ This model will have a set of [validators](https://github.com/inigo-llc/token_au
 - [ ] Make it so any resource name can be used for authentication (initial thought is either specify the default or pass resource name in token string?).
 - [ ] Allow users to specify the API namespace default.
 - [ ] Add a way to override/change/configure validations.
+
+## Code Of Conduct
+Wildland Open Source [Code Of Conduct](https://github.com/wildland/code-of-conduct)
