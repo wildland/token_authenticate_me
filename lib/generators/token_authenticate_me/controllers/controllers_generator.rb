@@ -9,11 +9,12 @@ module TokenAuthenticateMe
         template 'sessions.rb', 'app/controllers/api/sessions_controller.rb'
 
         # Inject /api/sesssion route into routes file
-        insert_after_api("    resource :session, only: [:create, :show, :destroy]\n"
+        insert_after_api("    resource :session, only: [:create, :show, :destroy]\n")
       end
 
       def create_password_reset_controller # rubocop:disable Metrics/MethodLength
-        route_str <<-ROUTE
+        template 'password_reset.rb', 'app/controllers/api/password_resets_controller.rb'
+        insert_after_api(<<-ROUTE
     resources(
       :password_resets,
       only: [:create, :update],
@@ -22,9 +23,7 @@ module TokenAuthenticateMe
       }
     )
 ROUTE
-
-        template 'password_reset.rb', 'app/controllers/api/password_resets_controller.rb'
-        insert_after_api(route_str)
+        )
       end
 
       def create_users_controller
@@ -60,7 +59,7 @@ ROUTE
 
       def maybe_create_api_v1_namespace
         in_root do
-          unless File.readlines('config/routes.rb').grep("namespace :api do")
+          unless File.readlines('config/routes.rb').grep('namespace :api do')
             route <<-ROUTE
 namespace :api do
     namespace :v1 do
@@ -68,6 +67,7 @@ namespace :api do
   end
 ROUTE
           end
+        end
       end
 
       def inject_before_actions_into_users_controllers
