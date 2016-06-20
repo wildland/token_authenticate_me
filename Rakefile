@@ -1,4 +1,3 @@
-require 'bundler'
 begin
   require 'bundler/setup'
 rescue LoadError
@@ -6,14 +5,6 @@ rescue LoadError
 end
 
 require 'rdoc/task'
-
-task :console do
-  require 'irb'
-  require 'irb/completion'
-  require 'token_authenticate_me' # You know what to do.
-  ARGV.clear
-  IRB.start
-end
 
 RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
@@ -30,10 +21,6 @@ load 'rails/tasks/engine.rake'
 load 'rails/tasks/statistics.rake'
 
 
-
-task :rubocop do
-  system 'bundle exec rubocop -RD'
-end
 
 Bundler::GemHelper.install_tasks
 
