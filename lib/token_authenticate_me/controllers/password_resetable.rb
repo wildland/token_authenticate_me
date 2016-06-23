@@ -7,8 +7,9 @@ module TokenAuthenticateMe
     module PasswordResetable
       extend ActiveSupport::Concern
 
+      include TokenAuthenticateMe::Controllers::TokenAuthenticateable
+
       included do
-        include TokenAuthenticateMe::Controllers::TokenAuthenticateable
 
         skip_before_action :authenticate, only: [:create, :update]
         before_action :validate_reset_token, only: [:update]

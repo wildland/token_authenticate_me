@@ -6,7 +6,13 @@ module TokenAuthenticateMe
       extend ActiveSupport::Concern
 
       included do
+        belongs_to :user
+
         before_create :generate_unique_key
+
+        def as_json(options={})
+          { session: super({ include: :user }.merge(options)) }
+        end
 
         def attributes
           {

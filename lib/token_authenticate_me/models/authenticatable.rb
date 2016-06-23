@@ -9,6 +9,10 @@ module TokenAuthenticateMe
         has_secure_password validations: false
         attr_accessor :current_password
 
+        has_many :sessions
+        has_many :invites, inverse_of: 'creator', foreign_key: 'creator_id'
+
+
         validates(
           :email,
           presence: true,
@@ -47,6 +51,10 @@ module TokenAuthenticateMe
             'created_at' => created_at,
             'updated_at' => updated_at
           }
+        end
+
+        def as_json(options=nil)
+          { user: super(options) }
         end
 
         def create_reset_token!
