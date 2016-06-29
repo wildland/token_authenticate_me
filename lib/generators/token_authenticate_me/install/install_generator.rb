@@ -2,12 +2,12 @@ module TokenAuthenticateMe
   module Generators
     class InstallGenerator < Rails::Generators::Base
       def run_generators
-        invoke 'form_me:install:migrations'
-        invoke 'token_authenticate_me:models'
-        invoke 'token_authenticate_me:controllers'
-        invoke 'token_authenticate_me:policies'
-        invoke 'serializer', %w(user username email created_at updated_at)
-        invoke 'serializer', %w(invite email accepted meta creator:has_one created_at updated_at)
+        rake 'token_authenticate_me:install:migrations'
+        generate 'token_authenticate_me:models'
+        generate 'token_authenticate_me:controllers'
+        generate 'token_authenticate_me:policies'
+        generate 'serializer token_authenticate_me/user username email created_at updated_at'
+        generate 'serializer token_authenticate_me/invite email accepted meta creator:has_one created_at updated_at'
       end
 
       def mount_engine_routes

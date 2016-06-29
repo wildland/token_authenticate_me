@@ -1,7 +1,10 @@
 TokenAuthenticateMe::Engine.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :invites except: [:update] do
+      resource :session, only: [:create, :show, :destroy]
+      resource :users
+
+      resources :invites, except: [:update] do
         member do
           get 'accept'
           get 'decline'

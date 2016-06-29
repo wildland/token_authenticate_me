@@ -1,7 +1,7 @@
 module TokenAuthenticateMe
-  class InvitePolicy < ApplicationPolicy
+  class UserPolicy < ApplicationPolicy
     def create?
-      false
+      true
     end
 
     def show?
