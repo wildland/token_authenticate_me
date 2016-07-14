@@ -37,11 +37,11 @@ module TokenAuthenticateMe
       def authenticate_param
         token = params[:authentication_token]
         session = Session.find_by_key(token)
-        if session && session.expiration > DateTime.now
-          @session ||= session
-        else
-          @session ||= false
-        end
+        @session ||= if session && (session.expiration > DateTime.now)
+            session
+          else
+            false
+          end
       end
 
       def render_unauthorized
