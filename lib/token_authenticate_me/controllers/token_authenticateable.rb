@@ -16,11 +16,7 @@ module TokenAuthenticateMe
       end
 
       def current_user
-        if authenticate_token
-          @current_user ||= User.find_by_id(authenticate_token.user_id)
-        else
-          nil
-        end
+        @current_user ||= User.find_by_id(authenticate_token.user_id) if authenticate_token
       end
 
       def authenticate_token
@@ -38,10 +34,10 @@ module TokenAuthenticateMe
         token = params[:authentication_token]
         session = Session.find_by_key(token)
         @session ||= if session && (session.expiration > DateTime.now)
-            session
-          else
-            false
-          end
+                       session
+                     else
+                       false
+                     end
       end
 
       def render_unauthorized
