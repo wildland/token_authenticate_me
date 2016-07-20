@@ -1,3 +1,4 @@
+require 'token_authenticate_me'
 require 'token_authenticate_me/models/sessionable'
 
 module TokenAuthenticateMe

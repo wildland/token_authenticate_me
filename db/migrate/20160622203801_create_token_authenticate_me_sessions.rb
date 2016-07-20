@@ -9,5 +9,6 @@ class CreateTokenAuthenticateMeSessions < ActiveRecord::Migration
     end
 
     add_index :token_authenticate_me_sessions, :key, unique: true
+    add_foreign_key :token_authenticate_me_sessions, :token_authenticate_me_users, column: :user_id
   end
 end
