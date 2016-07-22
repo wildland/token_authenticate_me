@@ -13,7 +13,6 @@ module TokenAuthenticateMe
           has_many :sessions
           has_many :invites, inverse_of: 'creator', foreign_key: 'creator_id'
 
-
           validates(
             :email,
             presence: true,
@@ -54,7 +53,7 @@ module TokenAuthenticateMe
             }
           end
 
-          def as_json(options=nil)
+          def as_json(options = nil)
             { user: super(options) }
           end
 
@@ -65,7 +64,7 @@ module TokenAuthenticateMe
             end while self.class.exists?(reset_password_token: reset_password_token)
 
             self.reset_password_token_exp = password_expiration_hours.hours.from_now
-            self.save!
+            save!
           end
 
           def password_expiration_hours

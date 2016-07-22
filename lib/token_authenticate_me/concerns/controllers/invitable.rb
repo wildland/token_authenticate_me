@@ -9,8 +9,7 @@ module TokenAuthenticateMe
         include TokenAuthenticateMe::Controllers::TokenAuthenticateable
         include ApiMe
 
-        included do |base|
-
+        included do |_base|
           skip_before_action :authenticate, only: [:show]
 
           def create
@@ -38,7 +37,7 @@ module TokenAuthenticateMe
 
               render status: 204, nothing: true
             else
-              render json: { message: "The request has already been processed" }, status: 422
+              render json: { message: 'The request has already been processed' }, status: 422
             end
           end
 
@@ -49,7 +48,7 @@ module TokenAuthenticateMe
               @object.update!(accepted: false)
               render status: 204, nothing: true
             else
-              render json: { message: "The request has already been processed" }, status: 422
+              render json: { message: 'The request has already been processed' }, status: 422
             end
           end
         end

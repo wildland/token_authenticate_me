@@ -1,6 +1,5 @@
 require 'token_authenticate_me/concerns/models/invitable'
 
-
 module TokenAuthenticateMe
   class Invite < ActiveRecord::Base
     include TokenAuthenticateMe::Concerns::Models::Invitable

@@ -1,7 +1,7 @@
 class CreateTokenAuthenticateMeSessions < ActiveRecord::Migration
   def change
     create_table :token_authenticate_me_sessions do |t|
-      t.string   :key,        null: false
+      t.string   :key, null: false
       t.datetime :expiration
       t.integer  :user_id
 

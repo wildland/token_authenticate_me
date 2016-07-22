@@ -54,7 +54,7 @@ describe 'Password Reset API' do
     encrypted_pw = user.password_digest
 
     expect do
-      put '/password_resets//',  password: 'test', password_confirmation: 'test'
+      put '/password_resets//', password: 'test', password_confirmation: 'test'
     end.to raise_error(ActionController::RoutingError)
     expect(User.find(user.id).password_digest).to eq(encrypted_pw)
   end
@@ -73,7 +73,7 @@ describe 'Password Reset API' do
   it 'returns a 204 when a password reset is requested with a valid e-mail' do
     user = create_user
 
-    post '/password_resets/',  email: user.email
+    post '/password_resets/', email: user.email
 
     expect(last_response.status).to eq(204)
   end
@@ -81,7 +81,7 @@ describe 'Password Reset API' do
   it 'returns a 204 when a password reset is requested with a invalid e-mail' do
     user = create_user # rubocop:disable Lint/UselessAssignment
 
-    post '/password_resets/',  email: 'foo@bar.com'
+    post '/password_resets/', email: 'foo@bar.com'
 
     expect(last_response.status).to eq(204)
   end

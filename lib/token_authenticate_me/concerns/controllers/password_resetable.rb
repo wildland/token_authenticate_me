@@ -11,7 +11,6 @@ module TokenAuthenticateMe
         include TokenAuthenticateMe::Controllers::TokenAuthenticateable
 
         included do
-
           skip_before_action :authenticate, only: [:create, :update]
           before_action :validate_reset_token, only: [:update]
 

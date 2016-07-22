@@ -1,7 +1,7 @@
 class CreateTokenAuthenticateMeUsers < ActiveRecord::Migration
   def change
     create_table :token_authenticate_me_users do |t|
-      t.string :username,  null: false
+      t.string :username, null: false
       t.string :email, null: false
       t.string :password_digest, null: false
       t.string :reset_password_token

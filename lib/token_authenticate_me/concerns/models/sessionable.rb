@@ -11,7 +11,7 @@ module TokenAuthenticateMe
 
           before_create :generate_unique_key
 
-          def as_json(options={})
+          def as_json(options = {})
             { session: super({ include: :user }.merge(options)) }
           end
 

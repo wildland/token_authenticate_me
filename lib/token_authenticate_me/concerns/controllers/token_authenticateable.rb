@@ -19,13 +19,11 @@ module TokenAuthenticateMe
         def current_user
           if authenticate_token
             @current_user ||= User.find_by_id(authenticate_token.user_id)
-          else
-            nil
           end
         end
 
         def authenticate_token
-          @session ||= authenticate_with_http_token(&self.method(:token_handler))
+          @session ||= authenticate_with_http_token(&method(:token_handler))
         end
 
         def render_unauthorized
