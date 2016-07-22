@@ -33,7 +33,7 @@ module TokenAuthenticateMe
       end
 
       def token_handler(token, _options)
-        session = Session.find_by_key(token)
+        session = TokenAuthenticateMe::Session.find_by_key(token)
         if session && session.expiration > DateTime.now
           session
         else
