@@ -1,6 +1,6 @@
 require 'active_support/concern'
 
-require 'token_authenticate_me/concenrs/controllers/token_authenticateable'
+require 'token_authenticate_me/concerns/controllers/token_authenticateable'
 
 module TokenAuthenticateMe
   module Concerns
@@ -8,7 +8,7 @@ module TokenAuthenticateMe
       module PasswordResetable
         extend ActiveSupport::Concern
 
-        include TokenAuthenticateMe::Controllers::TokenAuthenticateable
+        include TokenAuthenticateMe::Concerns::Controllers::TokenAuthenticateable
 
         included do
           skip_before_action :authenticate, only: [:create, :update]
