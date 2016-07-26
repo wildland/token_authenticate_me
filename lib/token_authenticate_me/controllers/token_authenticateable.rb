@@ -12,7 +12,7 @@ module TokenAuthenticateMe
       protected
 
       def authenticate
-        authenticate_token || authenticate_param || render_unauthorized
+        authenticate_token || render_unauthorized
       end
 
       def current_user
