@@ -6,7 +6,7 @@ module TokenAuthenticateMe
       module Invitable
         extend ActiveSupport::Concern
 
-        include TokenAuthenticateMe::Controllers::TokenAuthenticateable
+        include TokenAuthenticateMe::Concerns::Controllers::TokenAuthenticateable
         include ApiMe
 
         included do |_base|
