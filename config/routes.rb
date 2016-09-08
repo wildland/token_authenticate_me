@@ -1,7 +1,7 @@
 TokenAuthenticateMe::Engine.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :session, only: [:create, :show, :destroy]
+      resource :session, only: [:create, :show, :destroy]
       resources :users
 
       resources :invites, except: [:update] do
