@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    token_authenticate_me (0.5.1)
+    token_authenticate_me (0.5.2)
       api_me (~> 0.6)
       rails (~> 4.2)
 
