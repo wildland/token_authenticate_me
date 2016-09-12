@@ -17,7 +17,7 @@ module TokenAuthenticateMe
         end
 
         def current_user
-          return @current_user if authenticate_token
+          return unless authenticate_token
           @current_user ||= User.find_by_id(authenticate_token.user_id)
         end
 
