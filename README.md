@@ -13,6 +13,23 @@ Run `bundle install` to install it.
 To install run the following:
 `rails generate token_authenticate_me:install`
 
+Include TokenAuthenticateMe::TokenAuthenticateable into the application controller or any controllers that require authorization:
+````rb
+require 'token_authenticate_me/concerns/controllers/token_authenticateable'
+
+class ApplicationController < ActionController::Base
+  include TokenAuthenticateMe::Concerns::Controllers::TokenAuthenticateable
+
+  # Prevent CSRF attacks by raising an exception.
+  # For APIs, you may want to use :null_session instead.
+  protect_from_forgery with: :exception
+
+  include TokenAuthenticateMe::Controllers::TokenAuthenticateable
+
+  #...
+end
+````
+
 To skip authentication in a controller, just skip the authenticate before action:
 ````rb
 class Api::V1::UsersController < Api::BaseController
