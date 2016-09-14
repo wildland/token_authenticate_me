@@ -13,7 +13,7 @@ Run `bundle install` to install it.
 To install run the following:
 `rails generate token_authenticate_me:install`
 
-Include TokenAuthenticateMe::TokenAuthenticateable into the application controller or any controllers that require authorization:
+Include `TokenAuthenticateMe::Concerns::Controllers::TokenAuthenticateable` into the application controller or any controllers that require authorization:
 ````rb
 require 'token_authenticate_me/concerns/controllers/token_authenticateable'
 
