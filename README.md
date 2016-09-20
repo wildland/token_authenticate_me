@@ -10,19 +10,15 @@ Add the gem to your Gemfile:
 
 Run `bundle install` to install it.
 
-To add or create a user with token authentication run:
-`rails generate token_authenticate_me:install <model>`
+To install run the following:
+`rails generate token_authenticate_me:install`
 
-Replace `<model>` with the class name used for users. This will create the necessary migration files, and optionally create the model file if it does not exist.
-
-**Right now this gem only supports creating the authentication model `User`, so it is recommended to call `rails generate token_authenticate_me:install user`**
-
-Include TokenAuthenticateMe::TokenAuthentication into the application controller or any controllers that require authorization:
+Include `TokenAuthenticateMe::Concerns::Controllers::TokenAuthenticateable` into the application controller or any controllers that require authorization:
 ````rb
-require 'token_authenticate_me/controllers/token_authenticateable'
+require 'token_authenticate_me/concerns/controllers/token_authenticateable'
 
 class ApplicationController < ActionController::Base
-  force_ssl if Rails.env.production?
+  include TokenAuthenticateMe::Concerns::Controllers::TokenAuthenticateable
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -44,27 +40,16 @@ end
 ````
 
 ## Authentication Model
-The model that is used for authentication will need to have `include TokenAuthenticateMe::Models::Authenticatable`. This will automatically happen if you use the generator.
-
-If you did not use the generator, this module expects the model to have the following attributes:
-* `email:string`
-* `password_digest:string`
-* `username:string`
-* `reset_password_token:string`
-* `reset_password_token_exp:datetime`
-
-This model will have a set of [validators](https://github.com/inigo-llc/token_authenticate_me/blob/master/lib/token_authenticate_me/models/authenticatable.rb#L11) added to it. 
+The model has 3 concerns:
+* [Authenticatable](https://github.com/wildland/token_authenticate_me/blob/master/lib/token_authenticate_me/concerns/models/authenticatable.rb)
+* [Invitable](https://github.com/wildland/token_authenticate_me/blob/master/lib/token_authenticate_me/concerns/models/invitable.rb)
+* [Sessionable](https://github.com/wildland/token_authenticate_me/blob/master/lib/token_authenticate_me/concerns/models/sessionable.rb)
 
 *tl;dr*:
 * `email` is required, can't be blank, is unique (case insensitive), and must look like an email address.
 * `password` is required, can not be blank, it must be confirmed (`password_confirmation`), and must be between 8 and 72 characters long. If the model has been persisted `password` can be blank or `nil` which indicates that it should not be changed and will be ignored.
 * `username` is required, can't be blank, is unique (case insensitive), and only allows alphanumeric values.
 * To change the `password` or `email` after the model has been persisted, you will need to provide the current password as `current_password`.
-
-#### TODO:
-- [ ] Make it so any resource name can be used for authentication (initial thought is either specify the default or pass resource name in token string?).
-- [ ] Allow users to specify the API namespace default.
-- [ ] Add a way to override/change/configure validations.
 
 ## Code Of Conduct
 Wildland Open Source [Code Of Conduct](https://github.com/wildland/code-of-conduct)
