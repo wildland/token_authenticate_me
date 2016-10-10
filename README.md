@@ -13,10 +13,6 @@ Run `bundle install` to install it.
 To install run the following:
 `rails generate token_authenticate_me:install`
 
-Replace `<model>` with the class name used for users. This will create the necessary migration files, and optionally create the model file if it does not exist.
-
-**Right now this gem only supports creating the authentication model `User`, so it is recommended to call `rails generate token_authenticate_me:install user`**
-
 Include `TokenAuthenticateMe::Concerns::Controllers::TokenAuthenticateable` into api controllers that require authorization:
 ````rb
 require 'token_authenticate_me/concerns/controllers/token_authenticateable'
