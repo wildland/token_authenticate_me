@@ -20,8 +20,6 @@ require 'token_authenticate_me/concerns/controllers/token_authenticateable'
 class ApiController < ApplicationController
   include TokenAuthenticateMe::Concerns::Controllers::TokenAuthenticateable
 
-  force_ssl if Rails.env.production?
-
   skip_before_filter :verify_authenticity_token # CSRF is not needed for header or param based auth
 
   #...
