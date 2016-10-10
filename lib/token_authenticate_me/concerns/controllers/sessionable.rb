@@ -1,5 +1,4 @@
 require 'active_support/concern'
-
 require 'token_authenticate_me/concerns/controllers/token_authenticateable'
 
 module TokenAuthenticateMe
@@ -8,43 +7,33 @@ module TokenAuthenticateMe
       module Sessionable
         extend ActiveSupport::Concern
 
-        include TokenAuthenticateMe::Concerns::Controllers::TokenAuthenticateable
-
         included do
-          skip_before_action :authenticate, only: [:create]
-          after_action :cleanup_sessions, only: [:destroy]
+          after_action :cleanup_sessions, only: [:create, :destroy]
 
-          def create
-            resource = User.where('username=? OR email=?', params[:username], params[:username]).first
-            if resource && resource.authenticate(params[:password])
-              @session = Session.create(user_id: resource.id)
-              render json: @session, status: 201
+          protected
+
+          def unauthenticate_resource
+            authenticated_session.destroy!
+          end
+
+          def create_session!(authenticated_resource)
+            Session.create!(user_id: authenticated_resource.id)
+          end
+
+          def resource
+            @resource ||= User.where('username=? OR email=?', session_params[:username], session_params[:username]).first
+          end
+
+          def authenticate_resource
+            if resource && resource.authenticate(session_params[:password])
+              resource
             else
-              render json: { message: 'Bad credentials' }, status: 401
+              nil
             end
           end
 
-          def show
-            @session = authenticate_token
-            render json: @session
-          end
-
-          def destroy
-            authenticate_token.destroy
-
-            render status: 204, nothing: true
-          rescue
-            render_unauthorized
-          end
-
-          private
-
-          def session_params
-            params.permit(:username, :email, :password)
-          end
-
           def cleanup_sessions
-            ApiSession.where('expiration < ?', DateTime.now).delete_all
+            Session.where('expiration < ?', DateTime.now).delete_all
           rescue
             Rails.logger.warn 'Error cleaning up old authentication sessions'
           end
