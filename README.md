@@ -13,18 +13,28 @@ Run `bundle install` to install it.
 To install run the following:
 `rails generate token_authenticate_me:install`
 
-Include `TokenAuthenticateMe::Concerns::Controllers::TokenAuthenticateable` into the application controller or any controllers that require authorization:
+Include `TokenAuthenticateMe::Concerns::Controllers::TokenAuthenticateable` into api controllers that require authorization:
 ````rb
 require 'token_authenticate_me/concerns/controllers/token_authenticateable'
 
-class ApplicationController < ActionController::Base
+class ApiController < ApplicationController
   include TokenAuthenticateMe::Concerns::Controllers::TokenAuthenticateable
 
+  skip_before_filter :verify_authenticity_token # CSRF is not needed for header or param based auth
+
+  #...
+end
+````
+
+Include `TokenAuthenticateMe::Concerns::Controllers::SessionAuthenticateable` into server rendered page controllers that require authorization:
+````rb
+require 'token_authenticate_me/concerns/controllers/session_authenticateable'
+
+class AuthenticatedController < ApplicationController
   # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  include TokenAuthenticateMe::Controllers::TokenAuthenticateable
+  include TokenAuthenticateMe::Concerns::Controllers::SessionAuthenticateable
 
   #...
 end
