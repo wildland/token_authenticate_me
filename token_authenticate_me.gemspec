@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rails', '~> 4.2'
   s.add_dependency 'api_me', '~> 0.6'
+  s.add_dependency 'bcrypt', '~> 3.1.7'
 
   s.add_development_dependency 'pg'
 end
