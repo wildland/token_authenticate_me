@@ -1,6 +1,7 @@
 require 'active_support/concern'
 require 'token_authenticate_me/concerns/controllers/authenticateable'
 require 'token_authenticate_me/header_authentication'
+require 'token_authenticate_me/param_authentication'
 
 module TokenAuthenticateMe
   module Concerns
@@ -18,7 +19,7 @@ module TokenAuthenticateMe
         protected
 
         def authenticated_session
-          @session ||= authenticate_with_header
+          @session ||= (authenticate_with_header || authenticate_with_params)
         end
 
         def authenticate_with_header
@@ -27,8 +28,8 @@ module TokenAuthenticateMe
         end
 
         def authenticate_with_params
-          token = params[:authentication_token]
-          token_handler(token, {})
+          header_authentication = TokenAuthenticateMe::ParamAuthentication.new(controller: self)
+          header_authentication.authenticate
         end
 
         def render_unauthorized
