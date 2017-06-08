@@ -26,7 +26,7 @@ class TokenAuthenticateMeMailer < ActionMailer::Base
   private
 
   def token_reset_path(user)
-    TokenAuthenticateMe.reset_path.sub(/:token/, user.reset_password_token)
+    TokenAuthenticateMe.configuration.reset_path.sub(/:token/, user.reset_password_token)
   end
 
   def invite_path(invite)
