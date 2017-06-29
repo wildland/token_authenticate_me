@@ -10,7 +10,7 @@ module TokenAuthenticateMe
           has_secure_password validations: false
           attr_accessor :current_password
 
-          has_many :sessions
+          has_many :sessions, dependent: :destroy
           has_many :invites, inverse_of: 'creator', foreign_key: 'creator_id'
 
           validates(
