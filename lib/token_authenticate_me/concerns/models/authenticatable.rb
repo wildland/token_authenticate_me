@@ -76,8 +76,9 @@ module TokenAuthenticateMe
           end
 
           def current_password_correct
+            user_with_old_password = self.class.find_by_id(id)
             errors.add(:current_password, 'is required to change email and/or password') if current_password.blank? # rubocop:disable Metrics/LineLength
-            errors.add(:current_password, 'is incorrect') unless authenticate(current_password)
+            errors.add(:current_password, 'is incorrect') unless user_with_old_password.authenticate(current_password)
           end
 
           def current_password_required?
