@@ -18,13 +18,17 @@ module TokenAuthenticateMe
           def create
             @user = User.find_by_email(params[:email])
 
-            if @user
-              send_valid_reset_email(@user)
+            if (/@/ =~ params[:email]) == nil
+              render status: 422, json: { errors: { email: ['The email address is invalid'] } }
             else
-              send_invalid_reset_email(params[:email])
-            end
+              if @user
+                send_valid_reset_email(@user)
+              else
+                send_invalid_reset_email(params[:email])
+              end
 
-            render status: 204, nothing: true
+              render status: 204, nothing: true
+            end
           end
 
           # Allow user to reset password when the token is valid
