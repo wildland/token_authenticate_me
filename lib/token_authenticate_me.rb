@@ -22,6 +22,7 @@ module TokenAuthenticateMe
       autoload :Authenticatable, 'token_authenticate_me/concerns/models/authenticatable'
       autoload :Invitable, 'token_authenticate_me/concerns/models/invitable'
       autoload :Sessionable, 'token_authenticate_me/concerns/models/sessionable'
+      autoload :Passwordable, 'token_authenticate_me/concerns/models/passwordable'
     end
   end
 

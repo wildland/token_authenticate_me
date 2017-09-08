@@ -54,10 +54,12 @@ end
 ````
 
 ## Authentication Model
-The model has 3 concerns:
+The model has 4 concerns:
 * [Authenticatable](https://github.com/wildland/token_authenticate_me/blob/master/lib/token_authenticate_me/concerns/models/authenticatable.rb)
 * [Invitable](https://github.com/wildland/token_authenticate_me/blob/master/lib/token_authenticate_me/concerns/models/invitable.rb)
 * [Sessionable](https://github.com/wildland/token_authenticate_me/blob/master/lib/token_authenticate_me/concerns/models/sessionable.rb)
+*
+[Passwordable](https://github.com/wildland/token_authenticate_me/blob/master/lib/token_authenticate_me/concerns/models/passwordable.rb)
 
 *tl;dr*:
 * `email` is required, can't be blank, is unique (case insensitive), and must look like an email address.
