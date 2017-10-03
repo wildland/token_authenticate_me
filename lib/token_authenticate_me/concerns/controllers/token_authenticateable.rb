@@ -11,11 +11,6 @@ module TokenAuthenticateMe
 
         include TokenAuthenticateMe::Concerns::Controllers::Authenticateable
 
-        included do
-          before_action :authenticate # By default authenticate every action
-        end
-
-
         protected
 
         def authenticated_session
