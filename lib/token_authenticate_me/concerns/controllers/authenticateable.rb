@@ -6,6 +6,10 @@ module TokenAuthenticateMe
     module Controllers
       module Authenticateable
         extend ActiveSupport::Concern
+        
+        included do
+          before_action :authenticate # By default authenticate every action
+        end
 
         # Standard authentication routine, override to implement different auth strategies.
         def token_handler(token, options)
