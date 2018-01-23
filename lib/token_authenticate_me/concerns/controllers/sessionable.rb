@@ -20,8 +20,12 @@ module TokenAuthenticateMe
             Session.create!(user_id: authenticated_resource.id)
           end
 
+          def username
+            session_params[:username].blank? ? '' : session_params[:username].downcase
+          end
+
           def resource
-            @resource ||= User.where('username=? OR email=?', session_params[:username], session_params[:username]).first
+            @resource ||= User.where('lower(username)=? OR lower(email)=?', username, username).first
           end
 
           def authenticate_resource
