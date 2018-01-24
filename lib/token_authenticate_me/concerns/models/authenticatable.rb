@@ -6,12 +6,14 @@ module TokenAuthenticateMe
     module Models
       module Authenticatable
         extend ActiveSupport::Concern
-          include TokenAuthenticateMe::Concerns::Models::Passwordable
+        include TokenAuthenticateMe::Concerns::Models::Passwordable
 
         included do
 
           has_many :sessions, dependent: :destroy
           has_many :invites, inverse_of: 'creator', foreign_key: 'creator_id'
+
+          before_save :downcase_email_and_username
 
           validates(
             :email,
@@ -42,6 +44,13 @@ module TokenAuthenticateMe
 
           def as_json(options = nil)
             { user: super(options) }
+          end
+
+          protected
+
+          def downcase_email_and_username
+            self.email = email.downcase
+            self.username = username.downcase
           end
         end
       end
