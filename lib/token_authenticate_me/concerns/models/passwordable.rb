@@ -7,16 +7,27 @@ module TokenAuthenticateMe
         extend ActiveSupport::Concern
 
         included do
-
           has_secure_password validations: false
           attr_accessor :current_password
 
           validates(
             :password,
             presence: true,
-            length: { in: 8..72 },
             confirmation: true,
             if: :password_required?
+          )
+
+          validates(
+            :password_confirmation,
+            presence: true,
+            if: :password_required?
+          )
+
+          validates(
+            :password,
+            length: { in: 8..72 },
+            if: :password_required?,
+            unless: :ignore_password_length_validations?
           )
 
           validate(
@@ -54,6 +65,14 @@ module TokenAuthenticateMe
 
           def password_resetting?
             reset_password_token_changed? && reset_password_token_exp_changed?
+          end
+
+          def ignore_password_length_validations?
+            false
+          end
+
+          def ignore_password_length_validations?
+            false
           end
 
           def password_required?
