@@ -71,10 +71,6 @@ module TokenAuthenticateMe
             false
           end
 
-          def ignore_password_length_validations?
-            false
-          end
-
           def password_required?
             attempting_to_change_password? || new_record?
           end
