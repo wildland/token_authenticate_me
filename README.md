@@ -67,7 +67,7 @@ class MyUser
 end
 ```
 ### Default rules and behavior.
-* `email` is required, can't be blank, is unique (case insensitive), and must look like an email address.
+* `email` is required, can't be blank, is unique (case sensitive), and must look like an email address.
 * `password` is required, can not be blank, it must be confirmed (`password_confirmation`), and must be between 8 and 72 characters long. If the model has been persisted `password` can be blank or `nil` which indicates that it should not be changed and will be ignored.
 * `username` is required, can't be blank, is unique (case insensitive), and only allows alphanumeric values.
 * To change the `password` or `email` after the model has been persisted, you will need to provide the current password as `current_password`.
