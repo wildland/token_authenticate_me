@@ -9,16 +9,15 @@ module TokenAuthenticateMe
         include TokenAuthenticateMe::Concerns::Models::Passwordable
 
         included do
-
           has_many :sessions, dependent: :destroy
           has_many :invites, inverse_of: 'creator', foreign_key: 'creator_id'
 
-          before_save :downcase_email_and_username
+          before_save :downcase_username
 
           validates(
             :email,
             presence: true,
-            uniqueness: { case_sensitive: false },
+            uniqueness: { case_sensitive: true },
           )
 
           with_options if: :email_confirmation_required? do |model|
@@ -83,8 +82,7 @@ module TokenAuthenticateMe
             email_changed? && persisted?
           end
 
-          def downcase_email_and_username
-            self.email = email.downcase
+          def downcase_username
             self.username = username.downcase
           end
         end
