@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    token_authenticate_me (0.9.0)
-      api_me (~> 0.6)
+    token_authenticate_me (0.9.1)
+      api_me (>= 0.6)
       bcrypt (~> 3.1.7)
-      rails (>= 4.1, < 5)
+      rails (>= 4.1)
 
 GEM
   remote: https://rubygems.org/
@@ -48,7 +48,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    api_me (0.9.0)
+    api_me (0.9.1)
       active_model_serializers (~> 0.10.0)
       activerecord (>= 4.1.16)
       activesupport (>= 4.1.16)
@@ -61,7 +61,7 @@ GEM
     case_transform (0.2)
       activesupport
     concurrent-ruby (1.0.5)
-    crass (1.0.3)
+    crass (1.0.4)
     erubis (2.7.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
@@ -84,7 +84,7 @@ GEM
     pg (0.18.4)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
-    rack (1.6.9)
+    rack (1.6.10)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.10)
