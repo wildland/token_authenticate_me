@@ -27,7 +27,11 @@ module TokenAuthenticateMe
                 send_invalid_reset_email(params[:email])
               end
 
-              render status: 204, nothing: true
+              if Rails::VERSION::MAJOR < 5 && Rails::VERSION::MINOR < 2 # version < 5.2
+                render status: 204, nothing: true
+              else
+                head 204 # rails 5.2 styntax that renders a 204 status and no body
+              end
             end
           end
 
@@ -41,7 +45,11 @@ module TokenAuthenticateMe
               reset_password_token_exp: nil
             )
 
-            render status: 204, nothing: true
+            if Rails::VERSION::MAJOR < 5 && Rails::VERSION::MINOR < 2 # version < 5.2
+              render status: 204, nothing: true
+            else
+              head 204 # rails 5.2 styntax that renders a 204 status and no body
+            end
           rescue ActiveRecord::RecordInvalid => e
             handle_errors(e)
           end
@@ -81,7 +89,11 @@ module TokenAuthenticateMe
           end
 
           def render_not_found
-            render status: 404, nothing: true
+            if Rails::VERSION::MAJOR < 5 && Rails::VERSION::MINOR < 2 # version < 5.2
+              render status: 404, nothing: true
+            else
+              head 404 # rails 5.2 styntax that renders a 404 status and no body
+            end
           end
 
           def valid_reset_token?
