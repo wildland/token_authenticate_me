@@ -35,11 +35,7 @@ module TokenAuthenticateMe
                 @object.update!(accepted: true)
               end
 
-              if Rails::VERSION::MAJOR < 5 && Rails::VERSION::MINOR < 2 # version < 5.2
-                render status: 204, nothing: true
-              else
-                head 204 # rails 5.2 styntax that renders a 204 status and no body
-              end
+              head 204 # rails 5.2 styntax that renders a 204 status and no body
             else
               render json: { message: 'The request has already been processed' }, status: 422
             end
@@ -51,11 +47,7 @@ module TokenAuthenticateMe
             if @object.accepted.nil?
               @object.update!(accepted: false)
 
-              if Rails::VERSION::MAJOR < 5 && Rails::VERSION::MINOR < 2 # version < 5.2
-                render status: 204, nothing: true
-              else
-                head 204 # rails 5.2 styntax that renders a 204 status and no body
-              end
+              head 204 # rails 5.2 styntax that renders a 204 status and no body
             else
               render json: { message: 'The request has already been processed' }, status: 422
             end
