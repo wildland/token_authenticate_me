@@ -35,7 +35,7 @@ module TokenAuthenticateMe
                 @object.update!(accepted: true)
               end
 
-              render status: 204, nothing: true
+              head 204 # rails 5.2 styntax that renders a 204 status and no body
             else
               render json: { message: 'The request has already been processed' }, status: 422
             end
@@ -46,7 +46,8 @@ module TokenAuthenticateMe
 
             if @object.accepted.nil?
               @object.update!(accepted: false)
-              render status: 204, nothing: true
+
+              head 204 # rails 5.2 styntax that renders a 204 status and no body
             else
               render json: { message: 'The request has already been processed' }, status: 422
             end

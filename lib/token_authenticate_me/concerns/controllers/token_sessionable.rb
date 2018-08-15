@@ -29,7 +29,7 @@ module TokenAuthenticateMe
           def destroy
             unauthenticate_resource
 
-            render status: 204, nothing: true
+            head 204 # rails 5.2 styntax that renders a 204 status and no body
           rescue
             render_unauthorized
           end
@@ -44,4 +44,3 @@ module TokenAuthenticateMe
     end
   end
 end
-
