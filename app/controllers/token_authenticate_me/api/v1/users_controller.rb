@@ -1,4 +1,5 @@
 require 'token_authenticate_me/concerns/controllers/token_authenticateable'
+require 'api_me'
 
 module TokenAuthenticateMe
   module Api
