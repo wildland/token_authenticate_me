@@ -4,13 +4,6 @@ TokenAuthenticateMe::Engine.routes.draw do
       resource :session, only: [:create, :show, :destroy]
       resources :users
 
-      resources :invites, except: [:update] do
-        member do
-          get 'accept'
-          get 'decline'
-        end
-      end
-
       resources(
         :password_resets,
         only: [:create, :update],

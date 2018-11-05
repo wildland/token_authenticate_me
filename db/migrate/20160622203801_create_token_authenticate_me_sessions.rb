@@ -1,4 +1,4 @@
-class CreateTokenAuthenticateMeSessions < ActiveRecord::Migration
+class CreateTokenAuthenticateMeSessions < ActiveRecord::Migration[4.2]
   def change
     create_table :token_authenticate_me_sessions do |t|
       t.string   :key, null: false
