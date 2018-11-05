@@ -1,4 +1,4 @@
-class CreateTokenAuthenticateMeInvites < ActiveRecord::Migration
+class CreateTokenAuthenticateMeInvites < ActiveRecord::Migration[4.2]
   def change
     enable_extension 'uuid-ossp'
 

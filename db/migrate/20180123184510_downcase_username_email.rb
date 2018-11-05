@@ -1,4 +1,4 @@
-class DowncaseUsernameEmail < ActiveRecord::Migration
+class DowncaseUsernameEmail < ActiveRecord::Migration[4.2]
   class TokenAuthenticateMe::User < ActiveRecord::Base
   end
 

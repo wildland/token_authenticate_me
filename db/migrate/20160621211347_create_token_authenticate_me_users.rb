@@ -1,4 +1,4 @@
-class CreateTokenAuthenticateMeUsers < ActiveRecord::Migration
+class CreateTokenAuthenticateMeUsers < ActiveRecord::Migration[4.2]
   def change
     create_table :token_authenticate_me_users do |t|
       t.string :username, null: false

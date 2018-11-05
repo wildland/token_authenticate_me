@@ -11,7 +11,6 @@ module TokenAuthenticateMe
         included do
 
           has_many :sessions, dependent: :destroy
-          has_many :invites, inverse_of: 'creator', foreign_key: 'creator_id'
 
           before_save :downcase_email_and_username
 
