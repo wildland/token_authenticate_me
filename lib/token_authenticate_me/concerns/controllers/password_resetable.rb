@@ -16,7 +16,7 @@ module TokenAuthenticateMe
 
           # Send reset token to user with e-mail address
           def create
-            @user = User.find_by_email(email)
+            @user = User.find_by(find_by_hash)
 
             if (/@/ =~ params[:email]) == nil
               render status: 422, json: { errors: { email: ['The email address is invalid'] } }
@@ -47,6 +47,10 @@ module TokenAuthenticateMe
           end
 
           private
+
+          def find_by_hash
+            { email: email }
+          end
 
           def email
             params[:email].blank? ? '' : params[:email].downcase
