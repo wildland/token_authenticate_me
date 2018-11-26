@@ -42,7 +42,10 @@ module TokenAuthenticateMe
 
           validates(
             :username,
-            format: { with: /\A[a-zA-Z0-9]+\Z/ },
+            format: {
+              with: /\A[a-zA-Z0-9]+\Z/,
+              message: 'only alphanumeric characters are allowed'
+            },
             unless: :ignore_username_format_validation?
           )
 

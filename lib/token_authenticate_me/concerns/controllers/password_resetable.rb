@@ -54,14 +54,14 @@ module TokenAuthenticateMe
             TokenAuthenticateMeMailer.valid_user_reset_password_email(
               request.base_url,
               user
-            ).deliver
+            ).deliver_later
           end
 
           def send_invalid_reset_email(email)
             TokenAuthenticateMeMailer.invalid_user_reset_password_email(
               request.base_url,
               email
-            ).deliver
+            ).deliver_later
           end
 
           def session_params
