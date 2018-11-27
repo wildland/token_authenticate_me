@@ -1,25 +1,38 @@
 TokenAuthenticateMe
 =====================
 
-This gem adds simple API based token authentication. We at [Wildland](https://wild.land/) wanted to be able to handle our entire authentication process -- including account creation and logging in -- through a RESTful API over JSON using token authentication, and found that solutions like Devise required too much hand holding due to its complexity to ultimately get the functionality that we wanted. Unfortunately we were unable to find a satisfactory existing solution -- though I'm sure one does exist, this isn't a new problem -- so we set out to create our own. After using internally on one project, we decided to roll it out into a gem to use on another.
+This gem adds simple API based token authentication. We at [wildland](http://wild.land) wanted to be able to handle our entire authentication process -- including account creation and logging in -- through a RESTful API over JSON using token authentication, and found that solutions like Devise required too much hand holding due to its complexity to ultimately get the functionality that we wanted. Unfortunately we were unable to find a satisfactory existing solution -- though I'm sure one does exist, this isn't a new problem -- so we set out to create our own. After using internally on one project, we decided to roll it out into a gem to use on another.
 
-## Compatibility
-For rails < 5.x use v0.10.x
-For rails >= 5.x use v0.11.x
+## Installation
+
+Upgrading instead of Installing? Head over to our [upgrade instructions](#upgrade-instructions).
+
+Add the gem to your Gemfile using one of the following depending on your version of rails:
+
+- `rails >= 5.x`
+```rb
+  gem 'token_authenticate_me', '~> 0.11.1'
+```
+
+- `rails < 5.x`
+```rb
+  gem 'token_authenticate_me', '~> 0.10.0'
+```
+
+Then run `bundle install`.
+
+At this point you can head over to [getting started](#getting-started).
 
 ## Upgrade Instructions
   - For all major and minor run: `rails generate token_authenticate_me:install`
-  - Note: Patch version upgrades shouldnt need to run the install command.
+  - Note: Patch version upgrades shouldn't need to run the install command.
 
 ## Getting Started
 
-Add the gem to your Gemfile:
-`gem token_authenticate_me`
-
-Run `bundle install` to install it.
-
-To install run the following:
-`rails generate token_authenticate_me:install`
+To install run the generator:
+```
+$ rails generate token_authenticate_me:install
+```
 
 Include `TokenAuthenticateMe::Concerns::Controllers::TokenAuthenticateable` into api controllers that require authorization:
 ````rb
@@ -125,3 +138,7 @@ end
 
 ## Code Of Conduct
 Wildland Open Source [Code Of Conduct](https://github.com/wildland/code-of-conduct)
+
+## License
+
+This project is licensed under the [MIT License](LICENSE.md).
