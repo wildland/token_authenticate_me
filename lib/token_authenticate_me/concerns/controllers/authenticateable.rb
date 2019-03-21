@@ -29,7 +29,7 @@ module TokenAuthenticateMe
 
         def current_user
           return unless authenticated_session
-          @current_user = authenticated_session.user
+          authenticated_session.user
         end
       end
     end
