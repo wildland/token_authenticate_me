@@ -21,4 +21,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'bcrypt', '~> 3.1.7'
 
   s.add_development_dependency 'pg'
+  s.add_development_dependency 'rspec'
 end

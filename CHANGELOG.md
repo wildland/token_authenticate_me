@@ -1,14 +1,31 @@
-## 0.11.2 / 2019-03-21
-Updates the current_user method on concerns/controllers/authenticateable.rb
+# Changelog
+All notable changes to this project will be documented in this file.
 
-## 0.11.1 / 2018-11-26
-Version 0.11.1
+## [Unreleased]
+### Added
+  * Added CONTRIBUTING.md. ([@jweakley][])
+  * Added Github issue/pull request templates. ([@jweakley][])
 
-## 0.11.0 / 2018-11-05
-Removed invites
+### Changed
+  * Updated README.md to be more inline with other wildland open-source projects. ([@jweakley][])
+  * Converted to new CHANGELOG.md format. ([@jweakley][])
+  * Converted to updated LICENSE.md. ([@jweakley][])
 
-## 0.10.0 / 2018-08-20
-Updates to support Rails 5.2
+### Deprecated
+### Removed
+### Fixed
+### Security
 
-## 0.4.2 / 2015-09-08
-* [BUGFIX] fixed bug #26.
+
+## Old Format
+
+### 0.11.0 / 2018-11-05
+  * Removed invites
+
+### 0.10.0 / 2018-08-20
+  * Updates to support Rails 5.2
+
+### 0.4.2 / 2015-09-08
+  * [BUGFIX] fixed bug #26.
+
+[@jweakley]: https://github.com/jweakley
